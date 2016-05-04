@@ -1,5 +1,3 @@
-CREATE DATABASE  IF NOT EXISTS `veglportal` /*!40100 DEFAULT CHARACTER SET latin1 */;
-USE `veglportal`;
 -- MySQL dump 10.13  Distrib 5.1.40, for Win32 (ia32)
 --
 -- Host: cgsrv4.arrc.csiro.au    Database: veglportaltest
