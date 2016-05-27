@@ -2,7 +2,7 @@
 	position:fixed;
     height:60px; 
     width:100%;    
-    background-color: #1368ad;
+    background-color: #415EA7;
     z-index: 9999;
 }
 
@@ -36,7 +36,7 @@
     float: right;
     
     /* This is to minimise the craziness that occurs at small horizontal resolutions*/
-    background-color: #1368ad; 
+    background-color: #415EA7; 
     white-space: nowrap;
 }
 
