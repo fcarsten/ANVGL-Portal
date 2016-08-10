@@ -200,6 +200,85 @@
         </constructor-arg>
     </bean>
 
+    <bean id="inetAddress" class="java.net.InetAddress" factory-method="getLocalHost"/>
+
+    <!-- regionName is not functioning, Nectar will assign randomly -->
+    <bean id="cloudStorageService-nectar-qld" class="org.auscope.portal.core.services.cloud.CloudStorageService">
+        <constructor-arg name="endpoint" value="https://keystone.rc.nectar.org.au:5000/v2.0"/>
+        <constructor-arg name="provider" value="swift-keystone"/>
+        <constructor-arg name="accessKey" value="${env.nectar.storage.accesskey}"/>
+        <constructor-arg name="secretKey" value="${env.nectar.storage.secretkey}"/>
+        <constructor-arg name="regionName" value="Qld"/>
+        <constructor-arg name="relaxHostName" value="false"/>
+        <constructor-arg name="stripExpectHeader" value="true"/>
+        <property name="name" value="National eResearch Collaboration Tools and Resources (Queensland)"/>
+        <property name="id" value="nectar-openstack-storage-qld"/>
+        <property name="bucket" value="vl-portal"/>
+        <property name="authVersion" value="2.0"/>
+    </bean>
+
+    <bean id="cloudStorageService-nectar-melb" class="org.auscope.portal.core.services.cloud.CloudStorageService">
+        <constructor-arg name="endpoint" value="https://keystone.rc.nectar.org.au:5000/v2.0"/>
+        <constructor-arg name="provider" value="swift-keystone"/>
+        <constructor-arg name="accessKey" value="${env.nectar.storage.accesskey}"/>
+        <constructor-arg name="secretKey" value="${env.nectar.storage.secretkey}"/>
+        <constructor-arg name="regionName" value="Melbourne"/>
+        <constructor-arg name="relaxHostName" value="false"/>
+        <constructor-arg name="stripExpectHeader" value="true"/>
+        <property name="name" value="National eResearch Collaboration Tools and Resources (Melbourne)"/>
+        <property name="id" value="nectar-openstack-storage-melb"/>
+        <property name="bucket" value="vl-portal"/>
+        <property name="authVersion" value="2.0"/>
+    </bean>
+
+    <bean id="cloudComputeService-nectar" class="org.auscope.portal.core.services.cloud.CloudComputeServiceNectar">
+        <constructor-arg name="endpoint" value="https://keystone.rc.nectar.org.au:5000/v2.0"/>
+        <constructor-arg name="accessKey" value="${env.nectar.nova.accesskey}"/>
+        <constructor-arg name="secretKey" value="${env.nectar.nova.secretkey}"/>
+        <property name="keypair" value="${env.nectar.developer.keypair}"/>
+        <property name="id" value="necta:wr-openstack-compute"/>
+        <property name="name" value="National eResearch Collaboration Tools and Resources"/>
+        <property name="groupName" value ="vl-#{inetAddress.hostName.toLowerCase()}"/>
+        <property name="availableImages">
+            <list>
+                <bean class="org.auscope.portal.server.vegl.VglMachineImage">
+                    <constructor-arg name="imageId" value="Melbourne/85728cb8-5ff3-4110-91ab-a5567f714ca0"/>
+                    <property name="name" value="escript"/>
+                    <property name="description"><value>A Centos 6 machine with escript already installed.</value></property>
+                    <property name="keywords">
+                        <array>
+                            <value>escript</value>
+                            <value>centos6</value>
+                        </array>
+                    </property>
+                </bean>
+                <bean class="org.auscope.portal.server.vegl.VglMachineImage">
+                    <!-- <constructor-arg name="imageId" value="Melbourne/7fa567fb-24bb-412b-8c15-5002370ca199"/> -->
+                    <constructor-arg name="imageId" value="Melbourne/4f2315cf-e80b-470f-8df6-4f5347f95349"/>
+                    <property name="name" value="ANUGA"/>
+                    <property name="description"><value>A Centos 6 machine with ANUGA already installed.</value></property>
+                    <property name="keywords">
+                        <array>
+                            <value>anuga</value>
+                            <value>centos6</value>
+                        </array>
+                    </property>
+                </bean>
+                <bean class="org.auscope.portal.server.vegl.VglMachineImage">
+                    <constructor-arg name="imageId" value="Melbourne/51dfe9cb-e15e-4672-a4ee-058ad16e5fee"/>
+                    <property name="name" value="TCRM"/>
+                    <property name="description"><value>A Centos 6 machine with TCRM already installed.</value></property>
+                    <property name="keywords">
+                        <array>
+                            <value>tcrm</value>
+                            <value>centos6</value>
+                        </array>
+                    </property>
+                </bean>
+            </list>
+        </property>
+	</bean>
+	
     <bean id="cloudStorageService-aws-sydney" class="org.auscope.portal.core.services.cloud.CloudStorageService">
         <constructor-arg name="provider" value="aws-s3"/>
         <constructor-arg name="endpoint"><null/></constructor-arg>
@@ -214,8 +293,6 @@
         <property name="adminEmail" value="${HOST.portalAdminEmail}"/>
         <property name="requireSts" value="${HOST.aws.stsonly}"/>
     </bean>
-
-    <bean id="inetAddress" class="java.net.InetAddress" factory-method="getLocalHost"/>
 
     <bean id="cloudComputeService-aws" class="org.auscope.portal.core.services.cloud.CloudComputeServiceAws">
         <constructor-arg name="endpoint" value="ec2.ap-southeast-2.amazonaws.com"/>
