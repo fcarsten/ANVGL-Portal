@@ -251,8 +251,8 @@ Ext.define('vegl.jobwizard.forms.JobUploadForm', {
         }
 
         // see ANVGL 35
-        params.computeServiceId = "aws-ec2-compute";
-        params.storageServiceId = "amazon-aws-storage-sydney";
+        params.computeServiceId = "necta:wr-openstack-compute";
+        params.storageServiceId = "nectar-openstack-storage-melb";
 
         Ext.Ajax.request({
             url : 'secure/updateOrCreateJob.do',

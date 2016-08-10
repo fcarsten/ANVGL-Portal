@@ -30,7 +30,7 @@ Ext.define('vegl.jobwizard.forms.JobObjectForm', {
                    rootProperty : 'data'
                 },
                 extraParams: {
-                    computeServiceId: 'aws-ec2-compute' //See ANVGL-35
+                    computeServiceId: 'necta:wr-openstack-compute' //See ANVGL-35
                 }
             }
         });
@@ -104,13 +104,13 @@ Ext.define('vegl.jobwizard.forms.JobObjectForm', {
                 xtype : 'hiddenfield',
                 itemId: 'computeServiceId',
                 name: 'computeServiceId',
-                value: 'aws-ec2-compute'
+                value: 'necta:wr-openstack-compute'
             },{
                 //See ANVGL-35
                 xtype : 'hiddenfield',
                 itemId: 'storageServiceId',
                 name: 'storageServiceId',
-                value: 'amazon-aws-storage-sydney'
+                value: 'nectar-openstack-storage-melb'
             },{
                 xtype : 'machineimagecombo',
                 fieldLabel : 'Toolbox<span>*</span>',
@@ -347,7 +347,7 @@ Ext.define('vegl.jobwizard.forms.JobObjectForm', {
     },
 
     /**
-     * loads images for computeServiceId 'aws-ec2-compute'
+     * loads images for computeServiceId 'necta:wr-openstack-compute'
      * @function
      */
     loadImages : function() {
@@ -355,7 +355,7 @@ Ext.define('vegl.jobwizard.forms.JobObjectForm', {
         this.getComponent('resource-combo').clearValue();
         this.imageStore.load({
             params : {
-                computeServiceId : 'aws-ec2-compute' //See ANVGl-35
+                computeServiceId : 'necta:wr-openstack-compute' //See ANVGl-35
             }
         });
     },
@@ -375,7 +375,7 @@ Ext.define('vegl.jobwizard.forms.JobObjectForm', {
 
         this.getComponent('resource-combo').clearValue();
         var selectedComputeService = this.getComponent('computeServiceId').getValue();
-        var selectedComputeService = "aws-ec2-compute";
+        var selectedComputeService = "necta:wr-openstack-compute";
 
         this.computeTypeStore.load({
             params : {
@@ -431,8 +431,8 @@ Ext.define('vegl.jobwizard.forms.JobObjectForm', {
         var values = jobObjectFrm.getForm().getValues();
         values.seriesId = jobObjectFrm.wizardState.seriesId;
         values.jobId = jobObjectFrm.wizardState.jobId;
-        values.storageServiceId = "amazon-aws-storage-sydney";
-        values.computeServiceId = "aws-ec2-compute";
+        values.storageServiceId = "nectar-openstack-storage-melb";
+        values.computeServiceId = "necta:wr-openstack-compute";
         
         // update the job here
         Ext.Ajax.request({
