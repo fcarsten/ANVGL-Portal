@@ -1024,9 +1024,10 @@ public class JobBuilderController extends BaseCloudController {
                 for (Toolbox toolbox: toolboxes) {
                     if ((numToolboxes == 1) ||
                         !toolbox.getUri().equals(this.defaultToolbox)) {
-                        images.add(scmEntryService
-                                   .getToolboxImage(toolbox,
-                                                    computeServiceId));
+                        MachineImage image = scmEntryService.getToolboxImage(toolbox, computeServiceId);
+                        if(image!=null) {
+                            images.add(image);
+                        }
                     }
                 }
             }
