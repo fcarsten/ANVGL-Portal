@@ -16,16 +16,16 @@
 		
 
 		<div class="login-widget menu-item">
-			<security:authorize ifAllGranted="ROLE_ANONYMOUS">
+			<security:authorize access="hasRole('ROLE_ANONYMOUS')">
 				<div class="login-text"><a href="login.html">Login</a></div>
 			</security:authorize>
 
-			<security:authorize ifNotGranted="ROLE_ANONYMOUS">
+			<security:authorize access="!hasRole('ROLE_ANONYMOUS')">
 				<div>Hello <security:authentication property="principal.email" /><div class="dropdownicon"></div> 
 				</div>
 				
 				<div class="sub-menu">
-				    <security:authorize ifAllGranted="ROLE_ADMINISTRATOR">
+				    <security:authorize access="hasRole('ROLE_ADMINISTRATOR')">
                         <a href="admin.html">Administration</a>
                     </security:authorize>
                     <a href="user.html">Profile</a>

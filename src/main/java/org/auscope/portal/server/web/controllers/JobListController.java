@@ -48,9 +48,9 @@ import org.auscope.portal.server.vegl.VGLQueueJob;
 import org.auscope.portal.server.web.security.ANVGLUser;
 import org.auscope.portal.server.web.service.monitor.VGLJobStatusChangeHandler;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.access.AccessDeniedException;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.security.web.bind.annotation.AuthenticationPrincipal;
+import org.springframework.security.access.AccessDeniedException;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -1172,7 +1172,7 @@ public class JobListController extends BaseCloudController  {
 
         ModelMap namedSections = null;
         try {
-            namedSections = (ModelMap)jobStatusLogReader.getSectionedLogs(job, file == null ? VL_LOG_FILE : file);
+            namedSections = jobStatusLogReader.getSectionedLogs(job, file == null ? VL_LOG_FILE : file);
         } catch (PortalServiceException ex) {
             return generateJSONResponseMAV(false, null, ex.getMessage());
         }
