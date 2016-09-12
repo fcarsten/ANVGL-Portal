@@ -7,7 +7,6 @@ import java.io.StringWriter;
 import java.net.URI;
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
@@ -16,8 +15,6 @@ import java.util.Set;
 import org.apache.http.HttpResponse;
 import org.apache.http.HttpResponseFactory;
 import org.apache.http.HttpVersion;
-import org.apache.http.ProtocolVersion;
-import org.apache.http.StatusLine;
 import org.apache.http.impl.DefaultHttpResponseFactory;
 import org.apache.http.message.BasicStatusLine;
 import org.auscope.portal.core.cloud.CloudFileInformation;
@@ -29,6 +26,7 @@ import org.auscope.portal.server.vegl.VglDownload;
 import org.auscope.portal.server.web.security.ANVGLUser;
 import org.jmock.Expectations;
 import org.junit.After;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -39,7 +37,6 @@ import au.csiro.promsclient.Activity;
 import au.csiro.promsclient.Entity;
 import au.csiro.promsclient.ExternalReport;
 import au.csiro.promsclient.ProvenanceReporter;
-import junit.framework.Assert;
 
 public class ANVGLProvenanceServiceTest extends PortalTestClass {
     VEGLJob preparedJob;
@@ -172,12 +169,12 @@ public class ANVGLProvenanceServiceTest extends PortalTestClass {
     }
 
     @After
-    public void tearDown() throws Exception {
-
+    public void tearDown() {
+        // empty
     }
 
     @Test
-    public void testCreateActivity() throws Exception {
+    public void testCreateActivity() {
         String graph = anvglProvenanceService.createActivity(preparedJob, null, mockPortalUser);
         Assert.assertTrue(graph.contains(initialTurtle));
         Assert.assertTrue(graph.contains(serviceTurtle));
@@ -185,12 +182,12 @@ public class ANVGLProvenanceServiceTest extends PortalTestClass {
     }
 
     @Test
-    public void testUploadModel() throws Exception {
+    public void testUploadModel() {
         anvglProvenanceService.uploadModel(plainModel, preparedJob);
     }
 
     @Test
-    public void testJobURL() throws Exception {
+    public void testJobURL() {
         String url = anvglProvenanceService.jobURL(preparedJob, serverURL);
         Assert.assertEquals(serverURL + "/secure/getJobObject.do?jobId=1", url);
     }

@@ -123,18 +123,20 @@ public class ANVGLProvenanceService {
         String jobURL = jobURL(job, serverURL());
         Activity anvglJob = null;
         Set<Entity> inputs = createEntitiesForInputs(job, solutions, user);
+        StringWriter out = new StringWriter();
+
         try {
             anvglJob = new Activity().setActivityUri(new URI(jobURL)).setTitle(job.getName())
                     .setDescription(job.getDescription()).setStartedAtTime(new Date())
                     .setWasAssociatedWith(new URI(user.getId())).setUsedEntities(inputs);
+
+            Model graph = anvglJob.getGraph();
+            if (graph != null) {
+                uploadModel(graph, job);
+                anvglJob.getGraph().write(out, TURTLE_FORMAT);
+            }
         } catch (URISyntaxException ex) {
             LOGGER.error(String.format("Error parsing server name %s into URI.", jobURL), ex);
-        }
-        StringWriter out = new StringWriter();
-        Model graph = anvglJob.getGraph();
-        if (graph != null) {
-            uploadModel(graph, job);
-            anvglJob.getGraph().write(out, TURTLE_FORMAT);
         }
         return out.toString();
     }
@@ -232,7 +234,7 @@ public class ANVGLProvenanceService {
             for (VglDownload dataset : job.getJobDownloads()) {
                 URI dataURI = new URI(dataset.getUrl());
                 URI baseURI = new URI(dataURI.getScheme() + "://" + dataURI.getAuthority() + dataURI.getPath());
-                inputs.add((ServiceEntity) new ServiceEntity().setQuery(dataURI.getQuery()).setServiceBaseUri(baseURI)
+                inputs.add(new ServiceEntity().setQuery(dataURI.getQuery()).setServiceBaseUri(baseURI)
                         .setDataUri(dataURI).setDescription(dataset.getDescription())
                         .setWasAttributedTo(new URI(user.getId())).setTitle(dataset.getName()));
                 LOGGER.debug("New Input: " + dataset.getUrl());
