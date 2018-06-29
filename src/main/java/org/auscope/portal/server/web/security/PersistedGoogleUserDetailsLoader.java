@@ -9,7 +9,6 @@ import java.util.Map.Entry;
 
 import org.apache.commons.lang3.RandomStringUtils;
 import org.auscope.portal.server.web.security.ANVGLUser.AuthenticationFramework;
-import org.springframework.security.core.userdetails.UserDetails;
 
 import com.racquettrack.security.oauth.OAuth2UserDetailsLoader;
 
@@ -18,7 +17,7 @@ import com.racquettrack.security.oauth.OAuth2UserDetailsLoader;
  * @author Josh Vote (CSIRO)
  *
  */
-public class PersistedGoogleUserDetailsLoader implements OAuth2UserDetailsLoader<ANVGLUser> {
+public class PersistedGoogleUserDetailsLoader implements OAuth2UserDetailsLoader<ANVGLUser, String> {
 
     public static final int SECRET_LENGTH = 32;
 
@@ -101,7 +100,7 @@ public class PersistedGoogleUserDetailsLoader implements OAuth2UserDetailsLoader
     }
 
     @Override
-    public UserDetails createUser(String id, Map<String, Object> userInfo) {
+    public ANVGLUser createUser(String id, Map<String, Object> userInfo) {
         List<ANVGLAuthority> authorities = new ArrayList<>();
         authorities.add(new ANVGLAuthority(defaultRole));
         if (rolesByUser != null) {
@@ -134,13 +133,11 @@ public class PersistedGoogleUserDetailsLoader implements OAuth2UserDetailsLoader
     }
 
     @Override
-    public UserDetails updateUser(UserDetails userDetails,
+    public ANVGLUser updateUser(ANVGLUser userDetails,
             Map<String, Object> userInfo) {
 
-        if (userDetails instanceof ANVGLUser) {
-            applyInfoToUser((ANVGLUser) userDetails, userInfo);
-            userDao.save((ANVGLUser) userDetails);
-        }
+        applyInfoToUser(userDetails, userInfo);
+        userDao.save(userDetails);
 
         return userDetails;
     }
