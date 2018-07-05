@@ -1,6 +1,7 @@
 package org.auscope.portal.server.web.controllers;
 
 import java.io.IOException;
+import java.io.StringWriter;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -11,6 +12,7 @@ import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.apache.velocity.VelocityContext;
 import org.apache.velocity.app.VelocityEngine;
 import org.auscope.portal.core.server.controllers.BasePortalController;
 import org.auscope.portal.core.services.PortalServiceException;
@@ -21,10 +23,10 @@ import org.auscope.portal.server.web.security.NCIDetailsDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
+import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.ui.velocity.VelocityEngineUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.commons.CommonsMultipartFile;
@@ -165,7 +167,12 @@ public class UserController extends BasePortalController {
         model.put("awsSecret", user.getAwsSecret());
         model.put("awsAccount", awsAccount);
 
-        String cloudFormationScript = VelocityEngineUtils.mergeTemplateIntoString(velocityEngine, CLOUD_FORMATION_RESOURCE, "UTF-8", model);
+        LocalSessionFactoryBean b;
+        StringWriter sw = new StringWriter();
+        
+        velocityEngine.mergeTemplate( CLOUD_FORMATION_RESOURCE, "UTF-8", new VelocityContext(model), sw);
+        
+        String cloudFormationScript = sw.toString(); 
 
         response.setContentType("application/octet");
         response.setHeader("Content-Disposition", "inline; filename=vgl-cloudformation.json;");

@@ -42,13 +42,7 @@
         <property name="host" value="${HOST.smtp.server}" />
     </bean>
 
-    <bean id="velocityEngine" class="org.springframework.ui.velocity.VelocityEngineFactoryBean">
-        <property name="velocityProperties">
-            <value>
-                resource.loader=class
-                class.resource.loader.class=org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader
-            </value>
-        </property>
+    <bean id="velocityEngine" class="org.apache.velocity.app.VelocityEngine">
     </bean>
 
     <bean name="jobCompletionMailSender" class="org.auscope.portal.server.vegl.mail.JobCompletionMailSender" autowire="constructor">
@@ -358,7 +352,7 @@
         <property name="sessionFactory" ref="veglSessionFactory"/>
     </bean>
 
-    <bean id="veglSessionFactory" class="org.springframework.orm.hibernate3.LocalSessionFactoryBean">
+    <bean id="veglSessionFactory" class="org.springframework.orm.hibernate5.LocalSessionFactoryBean">
         <property name="dataSource" ref="dataSource"/>
         <property name="mappingResources">
             <list>

@@ -14,13 +14,12 @@ import org.auscope.portal.server.vegl.VEGLSeries;
 import org.auscope.portal.server.vegl.VGLJobStatusAndLogReader;
 import org.hamcrest.Factory;
 import org.hamcrest.Matcher;
+import org.jmock.Expectations;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-import org.jmock.Expectations;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
-import org.springframework.ui.velocity.VelocityEngineFactoryBean;
 
 /**
  * Unit tests for JobCompletionMailSender.
@@ -48,12 +47,11 @@ public class TestJobCompletionMailSender extends PortalTestClass {
         mockJob = context.mock(VEGLJob.class);
 
         //Create VelocityEngine object to be used for constructing mail content.
-        VelocityEngineFactoryBean vecEngFBean = new VelocityEngineFactoryBean();
         Properties p = new Properties();
         p.put("resource.loader", "class");
         p.put("class.resource.loader.class", "org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader");
-        vecEngFBean.setVelocityProperties(p);
-        VelocityEngine velocityEngine = vecEngFBean.createVelocityEngine();
+
+        VelocityEngine velocityEngine = new VelocityEngine(p);
 
         //Global test variables to be used in all unit tests.
         Calendar cal1 = new GregorianCalendar(2013, 2, 5, 12, 00, 00);
