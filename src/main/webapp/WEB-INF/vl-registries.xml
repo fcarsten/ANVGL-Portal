@@ -18,11 +18,18 @@
         <constructor-arg name="recordInformationUrl" value="https://ecat.ga.gov.au/geonetwork/srv/eng/main.home?uuid=%1$s"/>
     </bean>
     
-    <bean id="cswNCI" class="org.auscope.portal.core.services.csw.CSWServiceItem">
-        <constructor-arg name="id" value="cswNCI"/>
+    <bean id="cswNciRR2" class="org.auscope.portal.core.services.csw.CSWServiceItem">
+        <constructor-arg name="id" value="cswNciRR2"/>
         <constructor-arg name="title" value="NCI Data Portal"/>
         <constructor-arg name="serviceUrl" value="http://geonetworkrr2.nci.org.au/geonetwork/srv/eng/csw"/>
         <constructor-arg name="recordInformationUrl" value="https://geonetworkrr2.nci.org.au/geonetwork/srv/eng/catalog.search#/metadata/%1$s"/>
+    </bean>
+
+    <bean id="cswNCI" class="org.auscope.portal.core.services.csw.CSWServiceItem">
+        <constructor-arg name="id" value="cswNCI"/>
+        <constructor-arg name="title" value="NCI Data Portal"/>
+        <constructor-arg name="serviceUrl" value="https://geonetwork.nci.org.au/geonetwork/srv/eng/csw"/>
+        <constructor-arg name="recordInformationUrl" value="https://geonetwork.nci.org.au/geonetwork/srv/eng/catalog.search#/metadata/%1$s"/>
     </bean>
 
     <bean id="cswNciGSWA" class="org.auscope.portal.core.services.csw.CSWServiceItem">
