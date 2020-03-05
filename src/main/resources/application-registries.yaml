@@ -28,3 +28,8 @@ csw:
         serviceUrl: https://geonetworktest.nci.org.au/geonetwork/srv/eng/csw
         recordInformationUrl: "https://geonetwork.nci.org.au/geonetwork/srv/eng/catalog.search#/metadata/%1$s"
         title: NCI MT Data Portal
+      - id: cswCarstenLocalhost
+        serviceUrl: http://localhost:8123/pycsw/csw.py
+        recordInformationUrl: "http://localhost:8123/pycsw/csw.py/catalog.search#/metadata/%1$s"
+        title: Carsten Localhost Test
+        
