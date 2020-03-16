@@ -303,12 +303,6 @@
             <version>1.6</version><!--$NO-MVN-MAN-VER$-->
             <scope>test</scope>
         </dependency>
-         <dependency>
-         	<groupId>org.ow2.asm</groupId>
-         	<artifactId>asm</artifactId>
-         	<version>7.1</version>
-            <scope>test</scope>
-         </dependency>
     </dependencies>
     
     <build>
