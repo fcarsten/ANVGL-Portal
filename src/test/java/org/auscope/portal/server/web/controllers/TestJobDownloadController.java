@@ -334,6 +334,37 @@ public class TestJobDownloadController extends PortalTestClass {
     }
 
     /**
+     * Test the method makeWcsUrl(...)
+     */
+    @Test
+    public void testMakeWcsUrl() {
+        final String localsServiceUrl = "http://example.org/wfs";
+        final String name = "name";
+        final String layerName = "layerName";
+        final Double northBoundLatitude = 2.0;
+        final Double eastBoundLongitude = 4.0;
+        final Double southBoundLatitude = 1.0;
+        final Double westBoundLongitude = 3.0;
+        final String bboxCrs = "EPSG:4387";
+        final String outputFormat = "o-f";
+        
+        ModelAndView mav = controller.makeWcsUrl(localsServiceUrl, name,layerName, bboxCrs,
+        		northBoundLatitude, southBoundLatitude, eastBoundLongitude, westBoundLongitude,
+        		outputFormat, false, mockRequest);
+        Assert.assertNotNull(mav);
+        Assert.assertTrue(((Boolean) mav.getModel().get("success")));
+        Assert.assertNotNull(mav.getModel().get("data"));
+        
+        ModelMap data = (ModelMap) mav.getModel().get("data");
+        Assert.assertEquals(northBoundLatitude, data.get("northBoundLatitude"));
+        Assert.assertEquals(eastBoundLongitude, data.get("eastBoundLongitude"));
+        Assert.assertEquals(southBoundLatitude, data.get("southBoundLatitude"));
+        Assert.assertEquals(westBoundLongitude, data.get("westBoundLongitude"));
+        Assert.assertEquals(name, data.get("name"));
+        Assert.assertNotNull(data.get("url"));
+    }
+    
+    /**
      * Tests that get the number of download items stored
      * in user session works as expected
      */
