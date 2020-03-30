@@ -23,7 +23,7 @@ csw:
         serviceUrl: http://localhost:8123/pycsw/csw.py
         recordInformationUrl: "http://localhost:8123/pycsw/csw.py/catalog.search#/metadata/%1$s"
         title: Carsten Localhost Test
-        serverType: Default
+        serverType: PyCSW
 #      - id: cswNigel
 #        serviceUrl: http://130.56.244.85/geonetwork/srv/eng/csw
 #        recordInformationUrl: "http://130.56.244.85/geonetwork/srv/eng/catalog.search#/metadata/%1$s"
