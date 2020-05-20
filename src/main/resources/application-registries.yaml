@@ -19,10 +19,15 @@ csw:
         serviceUrl: https://geonetwork.nci.org.au/geonetwork/srv/eng/csw
         recordInformationUrl: "https://geonetwork.nci.org.au/geonetwork/srv/eng/catalog.search#/metadata/%1$s"
         title: NCI Data Portal
-      - id: cswCarstenLocalhost
-        serviceUrl: http://localhost:8123/pycsw/csw.py
-        recordInformationUrl: "http://localhost:8123/pycsw/csw.py/catalog.search#/metadata/%1$s"
-        title: Carsten Localhost Test
+#      - id: cswCarstenLocalhost
+#        serviceUrl: http://localhost:8123/pycsw/csw.py
+#        recordInformationUrl: "http://localhost:8123/pycsw/csw.py/catalog.search#/metadata/%1$s"
+#        title: Carsten Localhost Test
+#        serverType: PyCSW
+      - id: GRACE
+        serviceUrl: http://insar-geoserver.geoanalytics.csiro.au:8081/api
+        recordInformationUrl: "http://insar-geoserver-dev.geoanalytics.csiro.au:8081/api/catalog.search#/metadata/%1$s"
+        title: GRACE Dev
         serverType: PyCSW
 #      - id: cswNigel
 #        serviceUrl: http://130.56.244.85/geonetwork/srv/eng/csw
